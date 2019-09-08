@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div class="container">
-      <h1>丰橙商城购物车</h1>
+      <h1>LOL英雄皮肤购物车</h1>
       <div class="table">
-        <Table :columns="columns" :data="booksData">
+        <Table :columns="columns" :data="skinData">
           <template slot-scope="{row}" slot="pic">
             <img class="goods-img" :src="row.pic" alt="">
           </template>
@@ -21,7 +21,7 @@
       <div class="footer">
         <h2 >总计：{{total}}</h2>
         <div>
-          <Button size="large" @click="submit" type="success">付款</Button>
+          <Button size="large" @click="submit" type="success">微信支付</Button>
         </div>
       </div>
     </div>
@@ -90,45 +90,40 @@ export default {
           width: '120'
         }
       ],
-      booksData: [
+      skinData: [
         {
           id: '0',
-          name: "JavaScript权威指南（第6版）",
-          pic: 'http://img3m0.ddimg.cn/13/17/22722790-1_b_6.jpg',
-          price: 111.20,
-          total: 0,
-          count: 1,
+          name: "元素女皇 奇亚娜",
+          pic: 'https://game.gtimg.cn/images/daoju/app/lol/medium/1-246-.jpg?_t=1561703982',
+          price: '43.65',
+          count: 0,
         },
         {
           id: '1',
-          name: "JavaScript忍者秘籍 第2版",
-          pic: 'http://img3m0.ddimg.cn/6/7/25234710-1_b_3.jpg',
-          price: 95.00,
-          total: 0,
+          name: "德玛西亚警官 卢锡安",
+          pic: 'https://game.gtimg.cn/images/daoju/app/lol/medium/2-236009-.jpg?_t=1563344600',
+          price: '76.63',
           count: 0,
         },
         {
           id: '2',
-          name: "JavaScript ES6 函数式编程入门经典",
-          pic: 'http://img3m2.ddimg.cn/62/16/25202492-1_b_3.jpg',
-          price: 43.80,
-          total: 0,
+          name: "电玩女神 凯特琳",
+          pic: 'https://game.gtimg.cn/images/daoju/app/lol/medium/2-51019-.jpg?_t=1561704164',
+          price: '43.65',
           count: 0,
         },
         {
           id: '3',
-          name: "高性能JavaScript",
-          pic: 'http://img3m5.ddimg.cn/16/29/23762095-1_b_204.jpg',
-          price: 62.40,
-          total: 0,
+          name: "战斗学院 伊泽瑞尔",
+          pic: 'https://game.gtimg.cn/images/daoju/app/lol/medium/2-81021-.jpg?_t=1557906564',
+          price: '96.03',
           count: 0,
         },
         {
           id: '4',
-          name: "深入浅出Node.js",
-          pic: 'http://img3m1.ddimg.cn/69/1/23371791-1_b_3.jpg',
-          price: 54.50,
-          total: 0,
+          name: "源计划：末日 沃里克",
+          pic: 'https://game.gtimg.cn/images/daoju/app/lol/medium/2-19016-.jpg?_t=1565065348',
+          price: '76.63',
           count: 0,
         },
       ]
@@ -143,7 +138,7 @@ export default {
           title: '提示',
           content: '<p>你确定要删除这组数据吗？</p>',
           onOk: () => {
-            this.booksData.splice(index, 1);
+            this.skinData.splice(index, 1);
             this.$Message.info('删除成功！');
           },
           onCancel: () => {
@@ -152,14 +147,14 @@ export default {
       });
     },
     submit() {
-      const req = this.booksData.map(item => ({id: item.id, count: item.count}));
+      const req = this.skinData.map(item => ({id: item.id, count: item.count}));
       console.log(req)
       this.$Message.info(JSON.stringify(req));
     }
   },
   computed: {
     total() {
-      const price = this.booksData.reduce((a, b) => {
+      const price = this.skinData.reduce((a, b) => {
         return new bignumber(a).plus(new bignumber(b.count).multipliedBy(b.price));
       }, 0);
       return new bignumber(price).toFixed(2);
@@ -189,9 +184,12 @@ export default {
 }
 .container .goods-img {
   width: 100px;
+  padding: 10px;
 }
 .footer {
   text-align: right;
+  padding-bottom: 200px;
+  
 }
 .footer h2 {
   padding: 10px;
